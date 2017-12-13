@@ -10688,11 +10688,12 @@
 
 	var filterCalories = function filterCalories() {
 	  $('#sort-calorie').on('click', function () {
+
 	    var columnIndex = $(this).prevAll().length,
 	        tableBody = $(this).closest("table").find("tbody"),
 	        tableRows = tableBody.find("tr"),
 	        classAttr = $(this).attr("class"),
-	        typeofClass = { 0: "ascending", 1: "descending", 2: "original" },
+	        typeofClass = { 0: "original", 1: "ascending", 2: "descending" },
 	        ascendOrDecend;
 
 	    function addOrRemoveClass(typeofClass, context) {
@@ -10717,17 +10718,17 @@
 	    }
 
 	    function sortTable() {
-	      if (ascendOrDecend == typeofClass[2]) {
+	      if (ascendOrDecend == typeofClass[0]) {
 	        $('.meal-table-body').empty();
 	        ajaxReq.populateFoods();
 	      } else {
 	        tableRows.sort(function (a, b) {
 	          var tda = $(a).find("td").eq(columnIndex).text();
 	          var tdb = $(b).find("td").eq(columnIndex).text();
-	          if (ascendOrDecend == typeofClass[0]) {
+	          if (ascendOrDecend == typeofClass[1]) {
 	            if (!isNaN(tda) && !isNaN(tdb)) return parseInt(tda) - parseInt(tdb);
 	            return tda > tdb ? 1 : tda < tdb ? -1 : 0;
-	          } else if (ascendOrDecend == typeofClass[1]) {
+	          } else if (ascendOrDecend == typeofClass[2]) {
 	            if (!isNaN(tda) && !isNaN(tdb)) return parseInt(tdb) - parseInt(tda);
 	            return tda < tdb ? 1 : tda > tdb ? -1 : 0;
 	          }
