@@ -10410,7 +10410,7 @@
 	var editFoodRequest = function editFoodRequest(inputData, foodId) {
 	  $.ajax({
 	    type: 'PATCH',
-	    url: 'http://y-a-quantified-self-be.herokuapp.com/api/v1/foods/' + foodId,
+	    url: 'https://y-a-quantified-self-be.herokuapp.com/api/v1/foods/' + foodId,
 	    data: inputData,
 	    success: function success(data) {
 	      alert('Food updated successfully');
@@ -10512,7 +10512,6 @@
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
-	    alert(data.message);
 	    mealHandler.deleteHandler(eventTarget);
 	  }).catch(function (error) {
 	    alert(error.statusText);
