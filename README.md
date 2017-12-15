@@ -11,3 +11,7 @@ Quantified Self is a calorie tracking app which allows a user to create foods, a
 `git clone https://github.com/Aram-Anderson/quantified-self-starter-kit.git`. `cd quantified-self-starter-kit`. `npm install`, `npm start`.
 
 By default, the app will call the our [live version](https://y-a-quantified-self-be.herokuapp.com/) on Heroku. You can find the repo for the backend [here](https://github.com/Aram-Anderson/quantified-self-BE). If you want to run both the frontend and backend locally, go to the backend repo and follow the instructions for setting up locally there. Change all instances of https://y-a-quantified-self-be.herokuapp.com in this repo to htpps://localhost:3000 to use a local backend.
+
+## Contributing
+
+Please fork this repo, and send one of us a message with what you'd like to add to the project. Once you've implemented your changes, make a PR and we will review it. 
