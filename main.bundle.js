@@ -10337,8 +10337,8 @@
 
 	var $ = __webpack_require__(1);
 	var foodHandlers = __webpack_require__(3);
-	var url = 'https://y-a-quantified-self-be.herokuapp.com/api/v1/foods';
-	var mealsUrl = 'https://y-a-quantified-self-be.herokuapp.com/api/v1/meals';
+	var url = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
+	var mealsUrl = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
 
 	var populateFoods = function populateFoods() {
 	  $.getJSON(url).then(foodHandlers.appendPosts).catch(foodHandlers.errorLog);
@@ -10349,15 +10349,9 @@
 	    type: 'POST',
 	    url: url,
 	    data: foodPost,
-	    dataType: 'json',
-	    success: function success(data) {
-	      $('.food-table').prepend('<tr data-id="' + data.id + '"><td contenteditable="true">' + data.name + '</td><td contenteditable="true">' + data.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
-	      $("#new_food").trigger('reset');
-	      return false;
-	    },
-	    error: function error(err) {
-	      console.log(err);
-	    }
+	    dataType: 'json'
+	  }).then(foodHandlers.postToFood).catch(function (error) {
+	    alert('Request could not be processed.');
 	  });
 	};
 
@@ -10381,7 +10375,7 @@
 	function deleteFoodsFromMeals(foodId, mealIds) {
 	  return mealIds.map(function (id) {
 	    $.ajax({
-	      url: 'https://y-a-quantified-self-be.herokuapp.com/api/v1/meals/' + id + '/foods/' + foodId,
+	      url: mealsUrl + '/' + id + '/foods/' + foodId,
 	      type: 'DELETE',
 	      dataType: 'json'
 	    });
@@ -10390,7 +10384,7 @@
 
 	function deleteFoodFromDB(foodId) {
 	  return $.ajax({
-	    url: 'https://y-a-quantified-self-be.herokuapp.com/api/v1/foods/' + foodId,
+	    url: url + '/' + foodId,
 	    type: 'DELETE',
 	    dataType: 'json'
 	  });
@@ -10410,14 +10404,10 @@
 	var editFoodRequest = function editFoodRequest(inputData, foodId) {
 	  $.ajax({
 	    type: 'PATCH',
-	    url: 'https://y-a-quantified-self-be.herokuapp.com/api/v1/foods/' + foodId,
-	    data: inputData,
-	    success: function success(data) {
-	      alert('Food updated successfully');
-	    },
-	    error: function error(err) {
-	      alert('There was a problem with your request. Please try again.');
-	    }
+	    url: url + '/' + foodId,
+	    data: inputData
+	  }).catch(function (error) {
+	    alert('Request could not be processed.');
 	  });
 	};
 
@@ -10439,8 +10429,18 @@
 
 	var appendPosts = function appendPosts(data) {
 	  data.forEach(function (food) {
-	    $('.food-table').prepend('<tr data-id="' + food.id + '"><td class="food" name="name" contenteditable="true">' + food.name + '</td><td class="food" name="calories" contenteditable="true">' + food.calories + '</td><td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
+	    $('.food-table').prepend('<tr data-id="' + food.id + '">\n    <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n    <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n    <td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	  });
+	};
+
+	var postToFood = function postToFood(data) {
+	  // $('.food-table').prepend(`<tr data-id="${data.id}"><td contenteditable="true">
+	  //   ${data.name}</td><td contenteditable="true">${data.calories}</td>
+	  //   <td class="delete-cell">
+	  //   <i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>`)
+	  $('.food-table').prepend('<tr data-id="' + food.id + '">\n    <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n    <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n    <td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
+	  $("#new_food").trigger('reset');
+	  return false;
 	};
 
 	var searchTable = function searchTable(value) {
@@ -10456,7 +10456,8 @@
 	module.exports = {
 	  appendPosts: appendPosts,
 	  errorLog: errorLog,
-	  searchTable: searchTable
+	  searchTable: searchTable,
+	  postToFood: postToFood
 	};
 
 /***/ }),
@@ -10488,8 +10489,8 @@
 	var $ = __webpack_require__(1);
 	var mealHandler = __webpack_require__(6);
 	var helpers = __webpack_require__(7);
-	var mealURL = 'https://y-a-quantified-self-be.herokuapp.com/api/v1/meals';
-	var foodURL = 'https://y-a-quantified-self-be.herokuapp.com/api/v1/foods';
+	var mealURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+	var foodURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
 	var populateMeals = function populateMeals() {
 	  $.getJSON(mealURL).then(mealHandler.populateMeals);
@@ -10508,7 +10509,7 @@
 
 	function killFoodsMeal(eventTarget, foodId, mealId) {
 	  $.ajax({
-	    url: 'https://y-a-quantified-self-be.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId,
+	    url: mealURL + '/' + mealId + '/foods/' + foodId,
 	    type: 'DELETE',
 	    dataType: 'json'
 	  }).then(function (data) {
@@ -10531,7 +10532,7 @@
 	    rowsToAdd['' + $(this).data('id')] = { name: '' + $(this).data('name'), cals: '' + $(this).data('cals') };
 	  });
 	  var addFoodsPromises = foodsToAdd.map(function (foodId) {
-	    $.post('https://y-a-quantified-self-be.herokuapp.com/api/v1/meals/' + mealId + '/foods/' + foodId);
+	    $.post(mealURL + '/' + mealId + '/foods/' + foodId);
 	  });
 	  Promise.all(addFoodsPromises).then(function () {
 	    foodsToAdd.forEach(function (foodId) {
