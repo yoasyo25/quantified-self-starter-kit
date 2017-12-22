@@ -10426,19 +10426,16 @@
 
 	var $ = __webpack_require__(1);
 	var searchHelper = __webpack_require__(4);
+	var prependToFoodTable = $('.food-table').prepend('<tr data-id="' + food.id + '">\n  <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n  <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n  <td class="delete-cell">\n  <i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 
 	var appendPosts = function appendPosts(data) {
 	  data.forEach(function (food) {
-	    $('.food-table').prepend('<tr data-id="' + food.id + '">\n    <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n    <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n    <td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
+	    prependToFoodTable;
 	  });
 	};
 
 	var postToFood = function postToFood(food) {
-	  // $('.food-table').prepend(`<tr data-id="${data.id}"><td contenteditable="true">
-	  //   ${data.name}</td><td contenteditable="true">${data.calories}</td>
-	  //   <td class="delete-cell">
-	  //   <i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>`)
-	  $('.food-table').prepend('<tr data-id="' + food.id + '">\n    <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n    <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n    <td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
+	  prependToFoodTable;
 	  $("#new_food").trigger('reset');
 	  return false;
 	};
