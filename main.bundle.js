@@ -10355,6 +10355,16 @@
 	  });
 	};
 
+	var editFoodRequest = function editFoodRequest(inputData, foodId) {
+	  $.ajax({
+	    type: 'PATCH',
+	    url: url + '/' + foodId,
+	    data: inputData
+	  }).catch(function (error) {
+	    alert('Request could not be processed.');
+	  });
+	};
+
 	var deleteFood = function deleteFood() {
 	  var target = $(event.target);
 	  var foodId = target.closest('tr').data('id');
@@ -10401,16 +10411,6 @@
 	  });
 	}
 
-	var editFoodRequest = function editFoodRequest(inputData, foodId) {
-	  $.ajax({
-	    type: 'PATCH',
-	    url: url + '/' + foodId,
-	    data: inputData
-	  }).catch(function (error) {
-	    alert('Request could not be processed.');
-	  });
-	};
-
 	module.exports = {
 	  populateFoods: populateFoods,
 	  postFood: postFood,
@@ -10426,16 +10426,15 @@
 
 	var $ = __webpack_require__(1);
 	var searchHelper = __webpack_require__(4);
-	var prependToFoodTable = $('.food-table').prepend('<tr data-id="' + food.id + '">\n  <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n  <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n  <td class="delete-cell">\n  <i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 
 	var appendPosts = function appendPosts(data) {
 	  data.forEach(function (food) {
-	    prependToFoodTable;
+	    $('.food-table').prepend('<tr data-id="' + food.id + '">\n    <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n    <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n    <td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	  });
 	};
 
 	var postToFood = function postToFood(food) {
-	  prependToFoodTable;
+	  $('.food-table').prepend('<tr data-id="' + food.id + '">\n    <td class="food" name="name" contenteditable="true">' + food.name + '</td>\n    <td class="food" name="calories" contenteditable="true">' + food.calories + '</td>\n    <td class="delete-cell"><i class="delete-button fa fa-minus-circle" aria-hidden="true"></i></td></tr>');
 	  $("#new_food").trigger('reset');
 	  return false;
 	};
