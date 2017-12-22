@@ -10486,8 +10486,8 @@
 	var $ = __webpack_require__(1);
 	var mealHandler = __webpack_require__(6);
 	var helpers = __webpack_require__(7);
-	var mealURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
-	var foodURL = 'http://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
+	var mealURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/meals';
+	var foodURL = 'https://quantified-self-api-aa-ya.herokuapp.com/api/v1/foods';
 
 	var populateMeals = function populateMeals() {
 	  $.getJSON(mealURL).then(mealHandler.populateMeals);
