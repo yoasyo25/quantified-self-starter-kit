@@ -10433,7 +10433,7 @@
 	  });
 	};
 
-	var postToFood = function postToFood(data) {
+	var postToFood = function postToFood(food) {
 	  // $('.food-table').prepend(`<tr data-id="${data.id}"><td contenteditable="true">
 	  //   ${data.name}</td><td contenteditable="true">${data.calories}</td>
 	  //   <td class="delete-cell">
